@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Karena apa?? 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      height: 100vh;
+      background: linear-gradient(135deg, #1c1c2c, #2d2d44);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+      color: white;
+    }
+
+    .stars, .flowers {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .stars span {
+      position: absolute;
+      width: 2px;
+      height: 80px;
+      background: white;
+      animation: shooting 3s linear infinite;
+    }
+
+    .flower {
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      background-image: url('https://pngimg.com/uploads/flower/flower_PNG102945.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      animation: fall linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes shooting {
+      0% { transform: translateY(-100px); }
+      100% { transform: translateY(110vh); }
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-10%) rotate(0deg); opacity: 0; }
+      10% { opacity: 1; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+
+    .login-container, .love-container {
+      position: relative;
+      z-index: 1;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(12px);
+      padding: 40px;
+      border-radius: 25px;
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    h2 {
+      font-size: 28px;
+      color: #ffd3e3;
+      margin-bottom: 20px;
+      text-shadow: 1px 1px 2px #000;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      border-radius: 12px;
+      border: 1px solid #fff3;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 25px;
+      background: linear-gradient(45deg, #ff6fa1, #ff94b4);
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .profile-img {
+      border-radius: 100%;
+      width: 250px;
+      height: 250px;
+      margin-bottom: 20px;
+      object-fit: cover;
+      border: 4px solid #fff;
+    }
+
+    #greeting {
+      font-size: 24px;
+      color: #ffccf1;
+      margin-bottom: 20px;
+    }
+
+    .lyrics {
+      margin-top: 20px;
+      font-size: 18px;
+      height: 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .lyrics-line {
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid #fff;
+      margin: 0 auto;
+      text-align: center;
+      width: 0;
+      animation: typing 4s steps(40, end) forwards, blink 1s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stars" id="stars"></div>
+  <div class="flowers" id="flowers"></div>
+
+  <div class="login-container" id="login">
+    <h2>💕 Dengerin Lagu 💕</h2>
+    <p>Masukkan nama kamu dulu yaa 😚</p>
+    <input type="text" id="nameInput" placeholder="Nama kamu, cinta..."/>
+    <button onclick="enterLove()">Masuk ke lagu 💞</button>
+  </div>
+
+  <div class="love-container hidden" id="lovePage">
+    <img src="cindy2.jpg" alt="foto kamu" class="profile-img" />
+    <h2 id="greeting">Hai, Sayang!</h2>
+    <div class="lyrics" id="lyricsContainer"></div>
+    <audio id="bgm" loop>
+      <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_5e7a3c22f1.mp3" type="audio/mp3">
+    </audio>
+  </div>
+
+  <script>
+    const lyrics = [
+      { text: "Karena aku mencintaimu 💖", delay: 6000 },
+      { text: "Dan hatiku hanya untukmu 💘", delay: 6000 },
+      { text: "Tak akan menyerah 💪", delay: 5000 },
+      { text: "Dan tak akan berhenti mencintaimu 💌", delay: 5000 },
+      { text: "I love you sayang ❤️❤️❤️", delay: 6000 },
+      { text: "Aku sayang sama kamu ❤️❤️❤️❤️", delay: 6000 }
+    ];
+
+    function enterLove() {
+      const name = document.getElementById("nameInput").value.trim();
+      if (!name) return alert("Isi nama kamu dulu ya, cinta!");
+
+      document.getElementById("login").classList.add("hidden");
+      const lovePage = document.getElementById("lovePage");
+      lovePage.classList.remove("hidden");
+      document.getElementById("greeting").textContent = `Hai, ${name} 💖`;
+
+      const bgm = document.getElementById("bgm");
+      bgm.volume = 0;
+      bgm.play();
+      let vol = 0;
+      const fadeIn = setInterval(() => {
+        if (vol < 1) {
+          vol += 0.05;
+          bgm.volume = vol;
+        } else {
+          clearInterval(fadeIn);
+        }
+      }, 200);
+
+      showLyrics(0);
+    }
+
+    function showLyrics(index) {
+      if (index >= lyrics.length) return;
+      const container = document.getElementById("lyricsContainer");
+      container.innerHTML = "";
+
+      const lineDiv = document.createElement("div");
+      lineDiv.className = "lyrics-line";
+      lineDiv.textContent = lyrics[index].text;
+      container.appendChild(lineDiv);
+
+      setTimeout(() => showLyrics(index + 1), lyrics[index].delay);
+    }
+
+    function createStars(count = 20) {
+      const stars = document.getElementById("stars");
+      for (let i = 0; i < count; i++) {
+        const star = document.createElement("span");
+        star.style.left = Math.random() * 100 + "%";
+        star.style.animationDelay = Math.random() * 3 + "s";
+        stars.appendChild(star);
+      }
+    }
+
+    function createFlowers(count = 20) {
+      const flowers = document.getElementById("flowers");
+      for (let i = 0; i < count; i++) {
+        const flower = document.createElement("div");
+        flower.className = "flower";
+        flower.style.left = Math.random() * 100 + "%";
+        flower.style.animationDuration = 6 + Math.random() * 5 + "s";
+        flower.style.animationDelay = Math.random() * 5 + "s";
+        flowers.appendChild(flower);
+      }
+    }
+
+    createStars();
+    createFlowers();
+  </script>
+</body>
+</html>
